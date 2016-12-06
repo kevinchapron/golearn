@@ -241,7 +241,7 @@ func (b *BaggedModel) PredictRatio(from base.FixedDataGrid) map[int](map[string]
 	return voting
 }
 
-func(b *BaggedModel) GenerateMaxRatio(with base.FixedDataGrid, votes map[int](map[string]int))(base.FixedDataGrid, error) {
+func(b *BaggedModel) GenerateMaxRatio(with base.FixedDataGrid, votes map[int](map[string]int))base.FixedDataGrid {
 	ret := base.GeneratePredictionVector(with)
 	for i := range votes {
 		maxClass := ""
@@ -256,7 +256,7 @@ func(b *BaggedModel) GenerateMaxRatio(with base.FixedDataGrid, votes map[int](ma
 		}
 		base.SetClass(ret, i, maxClass)
 	}
-	return ret,nil
+	return ret
 }
 
 
