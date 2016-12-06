@@ -59,6 +59,10 @@ func (f *RandomForest) Predict(with base.FixedDataGrid) (base.FixedDataGrid, err
 func (f *RandomForest) PredictRatio(with base.FixedDataGrid) (map[int](map[string]int), error) {
 	return f.Model.PredictRatio(with), nil
 }
+// Getting Max-voted prediction from ratio and dataset
+func (f *RandomForest) GenerateMaxRatio(with base.FixedDataGrid, votes map[int](map[string]int)) (base.FixedDataGrid, error) {
+	return f.Model.GenerateMaxRatio(with,votes), nil
+}
 
 // String returns a human-readable representation of this tree.
 func (f *RandomForest) String() string {

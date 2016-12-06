@@ -239,15 +239,16 @@ func (b *BaggedModel) PredictRatio(from base.FixedDataGrid) map[int](map[string]
 	votingwait.Wait()  // All the votes are in
 
 	return voting
-	/*
-	// Generate the overall consensus
-	ret := base.GeneratePredictionVector(from)
-	for i := range voting {
+}
+
+func(b *BaggedModel) GenerateMaxRatio(with base.FixedDataGrid, votes map[int](map[string]int))(base.FixedDataGrid, error) {
+	ret := base.GeneratePredictionVector(with)
+	for i := range votes {
 		maxClass := ""
 		maxCount := 0
 		// Find the most popular class
-		for c := range voting[i] {
-			votes := voting[i][c]
+		for c := range votes[i] {
+			votes := votes[i][c]
 			if votes > maxCount {
 				maxClass = c
 				maxCount = votes
@@ -255,8 +256,9 @@ func (b *BaggedModel) PredictRatio(from base.FixedDataGrid) map[int](map[string]
 		}
 		base.SetClass(ret, i, maxClass)
 	}
-	return ret*/
+	return ret
 }
+
 
 
 // String returns a human-readable representation of the
