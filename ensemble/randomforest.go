@@ -55,6 +55,10 @@ func (f *RandomForest) Fit(on base.FixedDataGrid) error {
 func (f *RandomForest) Predict(with base.FixedDataGrid) (base.FixedDataGrid, error) {
 	return f.Model.Predict(with), nil
 }
+// Predict Ratio generates predictions from a trained RandomForest.
+func (f *RandomForest) PredictRatio(with base.FixedDataGrid) (base.FixedDataGrid, error) {
+	return f.Model.PredictRatio(with), nil
+}
 
 // String returns a human-readable representation of this tree.
 func (f *RandomForest) String() string {
