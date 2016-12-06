@@ -256,7 +256,7 @@ func(b *BaggedModel) GenerateMaxRatio(with base.FixedDataGrid, votes map[int](ma
 		}
 		base.SetClass(ret, i, maxClass)
 	}
-	return ret
+	return ret,nil
 }
 
 
