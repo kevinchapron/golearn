@@ -3,8 +3,8 @@ package clustering
 import (
 	"bufio"
 	"github.com/gonum/matrix/mat64"
-	"github.com/sjwhitworth/golearn/base"
-	"github.com/sjwhitworth/golearn/metrics/pairwise"
+	"github.com/kevinchapron/golearn/base"
+	"github.com/kevinchapron/golearn/metrics/pairwise"
 	. "github.com/smartystreets/goconvey/convey"
 	"math"
 	"math/big"

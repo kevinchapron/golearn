@@ -2,7 +2,7 @@ package meta
 
 import (
 	"fmt"
-	"github.com/sjwhitworth/golearn/base"
+	"github.com/kevinchapron/golearn/base"
 	"math/rand"
 	"runtime"
 	"strings"
@@ -176,6 +176,88 @@ func (b *BaggedModel) Predict(from base.FixedDataGrid) base.FixedDataGrid {
 	}
 	return ret
 }
+
+func (b *BaggedModel) PredictRatio(from base.FixedDataGrid) map[int](map[string]int) {
+	n := runtime.NumCPU()
+	// Channel to receive the results as they come in
+	votes := make(chan base.DataGrid, n)
+	// Count the votes for each class
+	voting := make(map[int](map[string]int))
+
+	// Create a goroutine to collect the votes
+	var votingwait sync.WaitGroup
+	votingwait.Add(1)
+	go func() {
+		for { // Need to resolve the voting problem
+			incoming, ok := <-votes
+			if ok {
+				cSpecs := base.ResolveAttributes(incoming, incoming.AllClassAttributes())
+				incoming.MapOverRows(cSpecs, func(row [][]byte, predRow int) (bool, error) {
+					// Check if we've seen this class before...
+					if _, ok := voting[predRow]; !ok {
+						// If we haven't, create an entry
+						voting[predRow] = make(map[string]int)
+						// Continue on the current row
+					}
+					voting[predRow][base.GetClass(incoming, predRow)]++
+					return true, nil
+				})
+			} else {
+				votingwait.Done()
+				break
+			}
+		}
+	}()
+
+	// Create workers to process the predictions
+	processpipe := make(chan int, n)
+	var processwait sync.WaitGroup
+	for i := 0; i < n; i++ {
+		processwait.Add(1)
+		go func() {
+			for {
+				if i, ok := <-processpipe; ok {
+					c := b.Models[i]
+					l := b.generatePredictionInstances(i, from)
+					v, _ := c.Predict(l)
+					votes <- v
+				} else {
+					processwait.Done()
+					break
+				}
+			}
+		}()
+	}
+
+	// Send all the models to the workers for prediction
+	for i := range b.Models {
+		processpipe <- i
+	}
+	close(processpipe) // Finished sending models to be predicted
+	processwait.Wait() // Predictors all finished processing
+	close(votes)       // Close the vote channel and allow it to drain
+	votingwait.Wait()  // All the votes are in
+
+	return voting
+	/*
+	// Generate the overall consensus
+	ret := base.GeneratePredictionVector(from)
+	for i := range voting {
+		maxClass := ""
+		maxCount := 0
+		// Find the most popular class
+		for c := range voting[i] {
+			votes := voting[i][c]
+			if votes > maxCount {
+				maxClass = c
+				maxCount = votes
+			}
+		}
+		base.SetClass(ret, i, maxClass)
+	}
+	return ret*/
+}
+
 
 // String returns a human-readable representation of the
 // BaggedModel and everything it contains

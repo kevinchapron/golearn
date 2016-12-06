@@ -2,8 +2,8 @@ package clustering
 
 import (
 	"github.com/gonum/matrix/mat64"
-	"github.com/sjwhitworth/golearn/base"
-	"github.com/sjwhitworth/golearn/metrics/pairwise"
+	"github.com/kevinchapron/golearn/base"
+	"github.com/kevinchapron/golearn/metrics/pairwise"
 	"math/big"
 )
 

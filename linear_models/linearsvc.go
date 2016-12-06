@@ -4,7 +4,7 @@ import "C"
 
 import (
 	"fmt"
-	"github.com/sjwhitworth/golearn/base"
+	"github.com/kevinchapron/golearn/base"
 	"unsafe"
 )
 

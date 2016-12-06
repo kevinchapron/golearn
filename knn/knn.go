@@ -9,9 +9,9 @@ import (
 
 	"github.com/gonum/matrix"
 	"github.com/gonum/matrix/mat64"
-	"github.com/sjwhitworth/golearn/base"
-	"github.com/sjwhitworth/golearn/metrics/pairwise"
-	"github.com/sjwhitworth/golearn/utilities"
+	"github.com/kevinchapron/golearn/base"
+	"github.com/kevinchapron/golearn/metrics/pairwise"
+	"github.com/kevinchapron/golearn/utilities"
 )
 
 // A KNNClassifier consists of a data matrix, associated labels in the same order as the matrix, and a distance function.

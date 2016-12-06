@@ -15,7 +15,7 @@ twitter: [@golearn_ml](http://www.twitter.com/golearn_ml)
 Install
 =======
 
-See [here](https://github.com/sjwhitworth/golearn/wiki/Installation) for installation instructions.
+See [here](https://github.com/kevinchapron/golearn/wiki/Installation) for installation instructions.
 
 Getting Started
 =======
@@ -30,9 +30,9 @@ package main
 import (
 	"fmt"
 
-	"github.com/sjwhitworth/golearn/base"
-	"github.com/sjwhitworth/golearn/evaluation"
-	"github.com/sjwhitworth/golearn/knn"
+	"github.com/kevinchapron/golearn/base"
+	"github.com/kevinchapron/golearn/evaluation"
+	"github.com/kevinchapron/golearn/knn"
 )
 
 func main() {
@@ -82,15 +82,15 @@ Examples
 GoLearn comes with practical examples. Dive in and see what is going on.
 
 ```bash
-cd $GOPATH/src/github.com/sjwhitworth/golearn/examples/knnclassifier
+cd $GOPATH/src/github.com/kevinchapron/golearn/examples/knnclassifier
 go run knnclassifier_iris.go
 ```
 ```bash
-cd $GOPATH/src/github.com/sjwhitworth/golearn/examples/instances
+cd $GOPATH/src/github.com/kevinchapron/golearn/examples/instances
 go run instances.go
 ```
 ```bash
-cd $GOPATH/src/github.com/sjwhitworth/golearn/examples/trees
+cd $GOPATH/src/github.com/kevinchapron/golearn/examples/trees
 go run trees.go
 ```
 
